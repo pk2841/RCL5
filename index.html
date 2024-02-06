@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RCL-5 Dashboard</title>
+    <script src="https://apis.google.com/js/api.js"></script>
+    <style>
+        html {
+            overflow-y: scroll; 
+            overflow-x: scroll;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 100vh;
+            background-color: #252424; /* Black glossy background */
+            background-image: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(0, 0, 0, 0.6) 100%);
+            overflow: hidden; /* To prevent the glossy effect overflow */
+        }
+
+        h1, h2 {
+            color: #fff; /* White text for contrast */
+            margin-top: 20px;
+        }
+
+        form {
+            margin: 20px 0;
+            animation: fadeIn 1s ease;
+            display: flex;
+            align-items: center;
+            flex-direction: column; /* Align form items vertically on small screens */
+        }
+
+        label {
+            margin-bottom: 10px; /* Add space below label on small screens */
+            color: #eee; /* Light gray text */
+        }
+
+        input {
+            padding: 10px;
+            border: 2px solid #4CAF50;
+            border-radius: 20px;
+            outline: none;
+            transition: border-color 0.3s ease, transform 0.3s ease;
+            width: 100%; /* Make input full-width */
+            box-sizing: border-box; /* Include padding and border in the width */
+        }
+
+        input:focus {
+            border-color: #45a049;
+            transform: scale(1.05);
+        }
+
+        button {
+            margin-top: 10px; /* Add space above button on small screens */
+            padding: 10px 15px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+
+        #header {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            animation: slideInTop 1s ease;
+       }
+
+        #logo {
+            width: 450px;
+            height: 150px;
+            margin-right: 10px;
+            border-color: #333;
+            border: #333;
+            background: url('Rupeek.png') no-repeat center center;
+            background-size: cover;
+        }
+
+        
+        @media (max-width: 768px) {
+            #logo {
+                zoom: 0.5;
+                margin-right: 0; /* Remove margin for smaller screens */
+            }
+        }
+        
+        #additionalInfo {
+            color: #fff;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+
+        .resultTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .resultTable th, .resultTable td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            color: white; /* Set text color to white */
+        }
+        
+        .resultTable {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 15px;
+        }
+        
+        .resultTable th,
+        .resultTable td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            text-align: left;
+            color: white; /* Set text color to white */
+        }
+        
+        .resultTable th {
+            background-color: #4CAF50;
+            color: white;
+        }
+        
+        /* Green rows */
+        .resultTable tr:nth-child(-n + 3) td,
+        .resultTable tr:nth-child(-n + 3) th {
+            background-color: #4CAF50;
+        }
+        
+        /* Orange rows */
+        .resultTable tr:nth-child(n + 4):nth-child(-n + 8) td,
+        .resultTable tr:nth-child(n + 4):nth-child(-n + 8) th {
+            background-color: #FFA500;
+        }
+        
+        /* Blue rows */
+        .resultTable tr:nth-last-child(-n + 3) td,
+        .resultTable tr:nth-last-child(-n + 3) th {
+            background-color: #0000FF;
+        }
+        
+
+
+        #resultsContainer {
+            display: flex;
+            flex-wrap: wrap;
+            animation: fadeIn 1s ease;
+            justify-content: center;
+            align-items: flex-start;
+        }
+
+        .resultBox {
+            border: 1px solid #ddd;
+            padding: 15px;
+            margin: 15px;
+            box-sizing: border-box;
+            background-color: #ffd700;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 223, 0, 0.5);
+            transition: transform 0.3s ease;
+            width: 350px;
+            text-align: center;
+        }
+
+        .resultBox:hover {
+            transform: scale(1.05);
+        }
+
+        .resultBox p {
+            font-family: 'Aerial', serif;
+            font-size: 16px;
+            color: #333;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes slideInTop {
+            from {
+                transform: translateY(-100%);
+            }
+
+            to {
+                transform: translateY(0);
+            }
+        }
+
+        
+    </style>
+</head>
+
+<body>
+    <div id="header">
+        <div id="logo"></div>
+        <h2 id="heading">   🏆 RCL 5 🏆    </h2>
+    </div>
+
+    <form id="searchForm">
+        <!-- <label for="searchInput">Search:</label> -->
+        <input type="text" id="searchInput" name="searchInput" placeholder="Enter your Employee ID">
+        <button type="button" onclick="search()">Search</button>
+    </form>
+
+    <div id="resultsContainer">
+        <!-- Results will be displayed here -->
+    </div>
+
+    <div id="additionalInfo">
+        <!-- Additional information will be displayed here -->
+    </div>
+
+    <script>
+        function init() {
+            gapi.client.init({
+                apiKey: 'AIzaSyClERKAVft1-DM1C7OuJx0aWe9DzF15rMc',
+                discoveryDocs: ["https://sheets.googleapis.com/$discovery/rest?version=v4"],
+            });
+        }
+
+        const additionalInfoContainer = document.getElementById("additionalInfo")
+
+        document.getElementById("searchForm").addEventListener("submit", e =>{
+            search()
+            e.preventDefault()
+        }, false)
+        function search() {
+            const searchInput = document.getElementById('searchInput').value;
+        
+            gapi.client.sheets.spreadsheets.values.get({
+                spreadsheetId: '1je3OvJ6sFZQtv0UK_P-vE33AGEZPxLiB0nPpRpHqqig',
+                range: 'Sheet2',
+            }).then((response) => {
+                const values = response.result.values;
+        
+                const columns = values[0];
+                const dataMap = values.slice(1).map(row => {
+                    const rowData = {};
+                    columns.forEach((col, idx) => {
+                        rowData[col] = row[idx]
+                    })
+                    return rowData
+                })
+        
+                const resultsContainer = document.getElementById('resultsContainer');
+                resultsContainer.innerHTML = '';
+        
+                if (values && values.length > 1) {
+                    let foundEmployee = false;
+
+                values.slice(1).forEach((row) => {
+                    if (row.includes(searchInput)) {
+                        foundEmployee = true;
+
+                        const table = document.createElement('table');
+                        table.classList.add('resultTable');
+        
+                            columns.forEach((header, index) => {
+                                if (
+                                    header !== 'Target JAN (Points)' &&
+                                    header !== 'Bumper Points - Jan'
+                                ){
+                                    
+                                    const tr = document.createElement('tr');
+                                    const th = document.createElement('th');
+                                    th.textContent = header;
+                                    tr.appendChild(th);
+                                    
+                                    const td = document.createElement('td');
+                                    td.textContent = row[index] || '-';
+                                    tr.appendChild(td);
+                                    
+                                    table.appendChild(tr);
+                                }
+                            });
+        
+                            resultsContainer.appendChild(table);
+                        }
+                    });
+
+
+                    const filteredRow = dataMap.filter(record => record["Employee Id"]==searchInput)[0]
+                    console.log(filteredRow)
+
+                    const bumperPointsJan = filteredRow["Bumper Points - Jan"]
+                    const bumperTargetJanLacs = filteredRow["Bumper Target Jan - Val (Lacs)"]
+                    const targetJANLacs = filteredRow["Target JAN (Val - Lacs)"]
+                    const targetJANPoints = filteredRow["Target JAN (Points)"]
+                    const janAchievementPercent = filteredRow["Jan Achivement %"]
+                    const janAchievementLac = filteredRow["Jan Achivement\n( Val - Lacs)"]
+                    const updatedtilldate = filteredRow["Updated Till"]
+
+
+                    additionalInfoContainer.innerHTML = `
+                    <p>If Jan Achievement >= ₹ ${targetJANLacs} Lacs, then points achieved, ${targetJANPoints}</p>
+                    <p>If Jan Achievement >= ₹ ${bumperTargetJanLacs} Lacs, then points achieved, ${bumperPointsJan}</p>`
+
+                    if (!foundEmployee) {
+                        additionalInfoContainer.innerHTML = '<p style="color: white;">⚠ No Employee Found. ⚠</p>';
+                    }
+                } else {
+                    additionalInfoContainer.innerHTML = '<p style="color: white;">⚠ No results found. ⚠</p>';
+                }
+            });
+        }
+
+        gapi.load('client', init);
+    </script>
+
+</body>
+
+</html>
