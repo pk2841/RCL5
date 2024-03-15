@@ -134,27 +134,34 @@
         }
         
         .resultTable th {
-            background-color: #4CAF50;
-            color: white;
-        }
-        
-        /* Green rows */
-        .resultTable tr:nth-child(-n + 3) td,
-        .resultTable tr:nth-child(-n + 3) th {
-            background-color: #4CAF50;
-        }
-        
-        /* Orange rows */
-        .resultTable tr:nth-child(n + 4):nth-child(-n + 8) td,
-        .resultTable tr:nth-child(n + 4):nth-child(-n + 8) th {
-            background-color: #FFA500;
-        }
-        
-        /* Blue rows */
-        .resultTable tr:nth-last-child(-n + 3) td,
-        .resultTable tr:nth-last-child(-n + 3) th {
-            background-color: #0000FF;
-        }
+    background-color: #4CAF50;
+    color: white;
+}
+
+/* Green rows */
+.resultTable tr:nth-child(-n + 3) td,
+.resultTable tr:nth-child(-n + 3) th {
+    background-color: #4CAF50; /* Green */
+}
+
+/* Blue row */
+.resultTable tr:nth-child(4) td,
+.resultTable tr:nth-child(4) th {
+    background-color: #0000FF; /* Blue */
+}
+
+/* Yellow rows */
+.resultTable tr:nth-child(n + 5):nth-child(-n + 7) td,
+.resultTable tr:nth-child(n + 5):nth-child(-n + 7) th {
+    background-color: #FFA500; /* Orange */
+}
+
+/* Purple row */
+.resultTable tr:last-child td,
+.resultTable tr:last-child th {
+    background-color: #800080; /* Purple */
+}
+
         
 
 
@@ -211,6 +218,10 @@
             }
         }
 
+        /* Add margin to the image */
+        img {
+            margin-top: 20px;
+        }
         
     </style>
 </head>
@@ -231,9 +242,13 @@
         <!-- Results will be displayed here -->
     </div>
 
+    <!-- Add the image after the table -->
+    <img src="image.png" alt="Image">
+
     <div id="additionalInfo">
         <!-- Additional information will be displayed here -->
     </div>
+
     <script type='text/javascript' src='config.js'></script>
     <script type='text/javascript' src='config.js'></script>
     <script>
@@ -256,8 +271,8 @@
             const searchInput = document.getElementById('searchInput').value;
         
             gapi.client.sheets.spreadsheets.values.get({
-                spreadsheetId: '1je3OvJ6sFZQtv0UK_P-vE33AGEZPxLiB0nPpRpHqqig',
-                range: 'Sheet2',
+                spreadsheetId: '1KlMsrAvdxAOzz6kRJZeAp8MXx0KlqfjXb_UpJTtSfLQ',
+                range: 'Website Dump',
             }).then((response) => {
                 const values = response.result.values;
         
