@@ -138,6 +138,24 @@
     color: white;
 }
 
+.resultTable {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 15px;
+}
+
+.resultTable th, .resultTable td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+    color: white; /* Set text color to white */
+}
+
+.resultTable th {
+    background-color: #4CAF50;
+    color: white;
+}
+
 /* Green rows */
 .resultTable tr:nth-child(-n + 3) td,
 .resultTable tr:nth-child(-n + 3) th {
@@ -151,16 +169,24 @@
 }
 
 /* Yellow rows */
-.resultTable tr:nth-child(n + 5):nth-child(-n + 7) td,
-.resultTable tr:nth-child(n + 5):nth-child(-n + 7) th {
+.resultTable tr:nth-child(n + 5):nth-child(-n + 8) td,
+.resultTable tr:nth-child(n + 5):nth-child(-n + 8) th {
     background-color: #FFA500; /* Orange */
+}
+
+/* Light Blue rows */
+.resultTable tr:nth-child(n + 9):nth-child(-n + 11) td,
+.resultTable tr:nth-child(n + 9):nth-child(-n + 11) th {
+    background-color: #41c0ea; /* Light Blue */
 }
 
 /* Purple row */
 .resultTable tr:last-child td,
 .resultTable tr:last-child th {
-    background-color: #800080; /* Purple */
+    background-color: #d71bd7; /* Purple */
 }
+
+
 
         
 
@@ -222,6 +248,21 @@
         img {
             margin-top: 20px;
         }
+
+        /* Adjustments for small screens */
+@media only screen and (max-width: 768px) {
+    #logo {
+        width: 250px;
+        height: 100px; 
+    }
+    
+    img {
+        max-width: 100%; 
+        height: auto; 
+        margin-top: 10px; 
+    }
+}
+
         
     </style>
 </head>
